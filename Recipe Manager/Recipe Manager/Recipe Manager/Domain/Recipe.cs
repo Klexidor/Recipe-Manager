@@ -12,7 +12,7 @@ namespace Recipe_Manager.Domain
 		public string ThumbnailUrl { get; set; }
 		public string Tags { get; set; } //ToDo: change into string array for future refined tag search
 		public string VideoUrl { get; set; }
-		public Dictionary<string, string> IngredientsAndMeasurements { get; set; }
+		public List<KeyValuePair<string, string>> IngredientsAndMeasurements { get; set; }
 		public string Source { get; set; }
 		public string DateModified { get; set; }
 	}

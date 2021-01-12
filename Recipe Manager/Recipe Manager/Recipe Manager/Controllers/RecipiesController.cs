@@ -22,7 +22,7 @@ namespace Recipe_Manager.Controllers
 			this._mediator = mediator;
 		}
 
-		[HttpGet]
+		[HttpGet("{query}")]
 		public async Task<ActionResult<List<Recipe>>> GetRecipes(string query)
 		{
 			return await _mediator.Send(new List.Query() { RequestQuery = query});
