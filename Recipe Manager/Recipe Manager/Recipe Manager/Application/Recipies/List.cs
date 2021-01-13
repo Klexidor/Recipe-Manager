@@ -7,7 +7,6 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Recipe_Manager.Application.Recipies
@@ -25,9 +24,8 @@ namespace Recipe_Manager.Application.Recipies
 			{
 				//MealDB Request goes here.
 				WebRequest mealdbRequest = WebRequest.Create("https://www.themealdb.com/api/json/v1/1/search.php?s=" + request.RequestQuery);
-				WebResponse response = mealdbRequest.GetResponse();
+				WebResponse response = await mealdbRequest.GetResponseAsync();
 
-				List<Recipe> recipies = new List<Recipe>();
 				string serverResponse = "";
 
 				using (Stream dataStream = response.GetResponseStream())
@@ -35,10 +33,6 @@ namespace Recipe_Manager.Application.Recipies
 					StreamReader reader = new StreamReader(dataStream);
 
 					serverResponse = reader.ReadToEnd();
-
-					//recipies = JsonConvert.DeserializeObject<List<Recipe>>(serverResponse);
-
-					Console.WriteLine(serverResponse);
 				}
 
 				response.Close();
@@ -95,7 +89,6 @@ namespace Recipe_Manager.Application.Recipies
 
 					ingredientsAndMeasurements.Add(new KeyValuePair<string,string>(ingredient, resultRecipe[measureString + i].ToString()));
 				}
-
 
 				return ingredientsAndMeasurements;
 			}
